@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cygnus - Black Hole Simulator Project</title>
+    <style>
+      html, body, #app { height: 100%; margin: 0; background: #000; }
+      canvas { width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+      .hud { position: fixed; left: 10px; top: 10px; color: #9ff; font: 12px/1.4 system-ui, sans-serif; opacity: .85; }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="glcanvas"></canvas>
+      <div class="hud">Left-drag: orbit • Wheel: zoom • G: toggle high steps<br/>
+        Render distance: <input id="maxSteps" type="range" min="2000" max="30000" step="1000" value="20000" />
+        <span id="maxStepsVal">20k</span>
+        &nbsp; Bodies: 
+        <label><input id="obj1Toggle" type="checkbox" checked /> Star 1</label>
+        <label><input id="obj2Toggle" type="checkbox" checked /> Star 2</label>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+  </html>
+
+
