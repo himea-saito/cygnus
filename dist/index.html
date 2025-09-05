@@ -9,7 +9,7 @@
       canvas { width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
       .hud { position: fixed; left: 10px; top: 10px; color: #9ff; font: 12px/1.4 system-ui, sans-serif; opacity: .85; }
     </style>
-    <script type="module" crossorigin src="/cygnus/assets/index-C7lI7kVr.js"></script>
+    <script type="module" crossorigin src="/cygnus/assets/index-CVgym8Fy.js"></script>
   </head>
   <body>
     <div id="app">
@@ -22,6 +22,24 @@
         <label><input id="obj2Toggle" type="checkbox" checked /> Star 2</label>
       </div>
       <div id="err" class="hud" style="top:auto; bottom:10px; color:#f88;"></div>
+      <!-- GPU Warning Overlay -->
+      <div id="overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:center; z-index:1000;">
+        <div style="max-width:520px; padding:16px 18px; background:#0b0b10; border:1px solid #233; border-radius:8px; color:#cfe; font:14px/1.5 system-ui, sans-serif; box-shadow:0 4px 20px rgba(0,0,0,0.6);">
+          <div style="font-weight:600; margin-bottom:8px;">Heads up: GPU‑intensive simulation</div>
+          <div style="opacity:0.9;">
+            This black hole demo ray‑traces geodesics on your GPU. If your device lags or gets hot:
+            <ul style="margin:8px 0 0 18px; padding:0;">
+              <li>Lower <b>Render distance</b> (top‑left slider).</li>
+              <li>Toggle off extra <b>Bodies</b>.</li>
+              <li>Zoom in a bit to reduce workload.</li>
+            </ul>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:8px;">
+            <button id="startBtn" style="padding:8px 12px; background:#2b8; color:#012; border:none; border-radius:6px; cursor:pointer; font-weight:600;">Start</button>
+            <label style="display:flex; align-items:center; gap:6px; opacity:0.9;"><input id="rememberStart" type="checkbox" checked /> Don’t show again</label>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
   </html>

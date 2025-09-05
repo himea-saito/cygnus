@@ -7,6 +7,10 @@ import { OrbitCamera } from './orbitCamera';
 
 const canvas = document.getElementById('glcanvas') as HTMLCanvasElement;
 const errDiv = document.getElementById('err') as HTMLDivElement | null;
+const overlay = document.getElementById('overlay') as HTMLDivElement | null;
+const startBtn = document.getElementById('startBtn') as HTMLButtonElement | null;
+const rememberStart = document.getElementById('rememberStart') as HTMLInputElement | null;
+let renderStarted = false;
 const glCtx = canvas.getContext('webgl2', { antialias: false, preserveDrawingBuffer: false });
 if (!glCtx) {
   if (errDiv) errDiv.textContent = 'WebGL2 not supported or blocked. Try a different browser/device.';
@@ -275,7 +279,32 @@ function render() {
   requestAnimationFrame(render);
 }
 
-requestAnimationFrame(render);
+function startRendering() {
+  if (!renderStarted) {
+    renderStarted = true;
+    requestAnimationFrame(render);
+  }
+}
+
+function hideOverlayIfNeeded() {
+  try {
+    const key = 'cygnus_ack_gpu';
+    const remembered = localStorage.getItem(key) === '1';
+    if (overlay) {
+      if (remembered) {
+        overlay.style.display = 'none';
+        startRendering();
+      }
+      if (startBtn) startBtn.onclick = () => {
+        overlay.style.display = 'none';
+        if (rememberStart && rememberStart.checked) localStorage.setItem(key, '1');
+        startRendering();
+      };
+    }
+  } catch {}
+}
+
+hideOverlayIfNeeded();
 
 function subtract(a: [number, number, number], b: [number, number, number]): [number, number, number] {
   return [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
