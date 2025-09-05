@@ -6,7 +6,13 @@ import gridFS from './shaders/grid.frag.glsl?raw';
 import { OrbitCamera } from './orbitCamera';
 
 const canvas = document.getElementById('glcanvas') as HTMLCanvasElement;
-const gl = canvas.getContext('webgl2', { antialias: false, preserveDrawingBuffer: false })!;
+const errDiv = document.getElementById('err') as HTMLDivElement | null;
+const glCtx = canvas.getContext('webgl2', { antialias: false, preserveDrawingBuffer: false });
+if (!glCtx) {
+  if (errDiv) errDiv.textContent = 'WebGL2 not supported or blocked. Try a different browser/device.';
+  throw new Error('WebGL2 not supported');
+}
+const gl = glCtx as WebGL2RenderingContext;
 const maxStepsSlider = document.getElementById('maxSteps') as HTMLInputElement;
 const maxStepsVal = document.getElementById('maxStepsVal') as HTMLSpanElement;
 let maxSteps = 20000;
